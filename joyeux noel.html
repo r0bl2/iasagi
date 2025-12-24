@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>❄️ Joyeux Noël ❄️</title>
+
+<style>
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===== FOND ENNEIGÉ ===== */
+body {
+    height: 100vh;
+    background: linear-gradient(to bottom, #00111f, #0a2a43, #ffffff);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== SOL ENNEIGÉ ===== */
+.snow-ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 25%;
+    background: linear-gradient(to top, #ffffff, #f0f8ff);
+    border-radius: 50% 50% 0 0;
+    box-shadow: 0 -10px 40px rgba(255,255,255,0.8);
+}
+
+/* ===== TEXTE CENTRAL ===== */
+.message {
+    text-align: center;
+    z-index: 10;
+    animation: zoomIn 2s ease-out;
+}
+
+.message h1 {
+    font-size: 5rem;
+    color: gold;
+    text-shadow:
+        0 0 10px red,
+        0 0 20px gold,
+        0 0 40px green;
+    animation: glow 1.8s infinite alternate;
+}
+
+.message p {
+    font-size: 1.8rem;
+    margin-top: 20px;
+    color: white;
+    animation: fadeUp 3s ease;
+}
+
+/* ===== ANIMATIONS TEXTE ===== */
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px red, 0 0 20px gold;
+    }
+    to {
+        text-shadow: 0 0 30px red, 0 0 60px gold;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.4);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== NEIGE ===== */
+.snowflake {
+    position: absolute;
+    top: -20px;
+    color: white;
+    user-select: none;
+    animation: fall linear infinite, sway ease-in-out infinite;
+}
+
+/* Chute */
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
+    }
+}
+
+/* Balancement */
+@keyframes sway {
+    0% { margin-left: 0px; }
+    50% { margin-left: 30px; }
+    100% { margin-left: 0px; }
+}
+
+/* ===== ÉTOILES ===== */
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+}
+
+/* ===== GUIRLANDE LUMINEUSE ===== */
+.lights {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.light {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    animation: blink 1.5s infinite alternate;
+}
+
+.light:nth-child(odd) {
+    background: red;
+}
+
+.light:nth-child(even) {
+    background: green;
+}
+
+@keyframes blink {
+    from { opacity: 0.3; }
+    to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- GUIRLANDE -->
+<div class="lights">
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+</div>
+
+<!-- MESSAGE -->
+<div class="message">
+    <h1>🎄 JOYEUX NOËL 🎄</h1>
+    <p>Que la magie de Noël illumine ton cœur ❄️✨</p>
+</div>
+
+<!-- SOL -->
+<div class="snow-ground"></div>
+
+<!-- MUSIQUE DOUCE -->
+<audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/12/20/audio_3f3f38a0c3.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* ===== NEIGE DENSE ===== */
+const flakes = ["❄", "❅", "❆"];
+
+function createSnowflake() {
+    const snow = document.createElement("div");
+    snow.className = "snowflake";
+    snow.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+
+    snow.style.left = Math.random() * window.innerWidth + "px";
+    snow.style.fontSize = Math.random() * 22 + 10 + "px";
+    snow.style.opacity = Math.random();
+    snow.style.animationDuration = Math.random() * 5 + 6 + "s";
+
+    document.body.appendChild(snow);
+
+    setTimeout(() => snow.remove(), 12000);
+}
+
+setInterval(createSnowflake, 120);
+
+/* ===== ÉTOILES ===== */
+for (let i = 0; i < 80; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+    star.style.width = star.style.height = Math.random() * 3 + 1 + "px";
+    star.style.left = Math.random() * window.innerWidth + "px";
+    star.style.top = Math.random() * window.innerHeight * 0.5 + "px";
+    star.style.animationDuration = Math.random() * 3 + 2 + "s";
+    document.body.appendChild(star);
+}
+</script>
+
+</body>
+</html>
